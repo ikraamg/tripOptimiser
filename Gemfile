@@ -30,18 +30,22 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'activerecord-postgis-adapter'
 
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'factory_bot_rails'
-  gem 'rspec-rails',
+  gem 'rspec-rails'
   gem "better_errors"
   gem "binding_of_caller"
+  gem 'rubocop-rails', require: false
 end
 
 group :test do
-  # gem 'factory_bot'
+  gem 'database_cleaner-active_record'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :development do
