@@ -31,7 +31,19 @@
     <% end %>
   </tbody>
 </table>
+<br>
+<br>
+<div>
+  <%= form_for @booking, url: bookings_upload_path do |f| %>
+    <div class="form-group">
+    <%= f.label :file, "Upload CSV File" %>
+    <%= f.file_field :file, class: 'form-control-file', required: true %>
+    </div>
+  <%= f.button :submit %>
+  <% end %>
+</div>
 
+<br>
 <br>
 
 <%= link_to 'New Booking', new_booking_path %>

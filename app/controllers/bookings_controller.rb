@@ -4,6 +4,7 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.json
   def index
+    @booking = Booking.new
     @bookings = Booking.all
   end
 
@@ -37,6 +38,12 @@ class BookingsController < ApplicationController
     end
   end
 
+  def csv_create
+    Booking.import(params[:booking][:file])
+    flash[:notice] = "Countries uploaded successfully"
+    redirect_to bookings_path
+   end
+
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
@@ -69,6 +76,6 @@ class BookingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def booking_params
-      params.require(:booking).permit(:passenger, :location, :destination, :timeslot)
+      params.require(:booking).permit(:passenger, :location, :destination, :timeslot,:file)
     end
 end
