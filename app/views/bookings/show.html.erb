@@ -11,8 +11,18 @@
 </p>
 
 <p>
+  <strong>Location Coordinates:</strong>
+  <%= @booking.loclonlat ? @booking.loclonlat.coordinates : '' %>
+</p>
+
+<p>
   <strong>Destination:</strong>
   <%= @booking.destination %>
+</p>
+
+<p>
+  <strong>Destination Coordinates:</strong>
+  <%= @booking.deslonlat ? @booking.deslonlat.coordinates : '' %>
 </p>
 
 <p>

@@ -2,12 +2,14 @@
 
 <h1>Bookings</h1>
 
-<table>
+<table class="minimalistBlack">
   <thead>
     <tr>
       <th>Passenger</th>
       <th>Location</th>
+      <th>Location coordinates</th>
       <th>Destination</th>
+      <th>Destination coordinates</th>
       <th>Timeslot</th>
       <th colspan="3"></th>
     </tr>
@@ -18,7 +20,9 @@
       <tr>
         <td><%= booking.passenger %></td>
         <td><%= booking.location %></td>
+        <td><%= booking.loclonlat ? booking.loclonlat.coordinates : '' %></td>
         <td><%= booking.destination %></td>
+        <td><%= booking.deslonlat ? booking.deslonlat.coordinates : '' %></td>
         <td><%= booking.timeslot %></td>
         <td><%= link_to 'Show', booking %></td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
