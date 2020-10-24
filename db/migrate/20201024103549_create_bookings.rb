@@ -6,6 +6,12 @@ class CreateBookings < ActiveRecord::Migration[6.0]
       t.string :destination
       t.string :timeslot
 
+      t.st_point :loclonlat, geographic: true
+      t.st_point :deslonlat, geographic: true
+      
+      t.index :loclonlat, using: :gist
+      t.index :deslonlat, using: :gist
+      t.index :timeslot
       t.timestamps
     end
   end
