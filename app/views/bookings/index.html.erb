@@ -2,6 +2,8 @@
 
 <h1>Bookings</h1>
 
+<% @trips.each do |trip| %>
+
 <table class="minimalistBlack">
   <thead>
     <tr>
@@ -16,7 +18,7 @@
   </thead>
 
   <tbody>
-    <% @bookings.each do |booking| %>
+    <% trip.each do |booking| %>
       <tr>
         <td><%= booking.passenger %></td>
         <td><%= booking.location %></td>
@@ -24,6 +26,8 @@
         <td><%= booking.destination %></td>
         <td><%= booking.deslonlat ? booking.deslonlat.coordinates : '' %></td>
         <td><%= booking.timeslot %></td>
+        <!-- <td><%= booking.timeslot.to_time.strftime("%I:%M %p")  %></td> -->
+
         <td><%= link_to 'Show', booking %></td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
         <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -33,6 +37,16 @@
 </table>
 <br>
 <br>
+<% end %>
+<br>
+<br>
+
+
+<%= link_to 'New Booking', new_booking_path %>
+
+<br>
+<br>
+
 <div>
   <%= form_for @booking, url: bookings_upload_path do |f| %>
     <div class="form-group">
@@ -42,8 +56,3 @@
   <%= f.button :submit %>
   <% end %>
 </div>
-
-<br>
-<br>
-
-<%= link_to 'New Booking', new_booking_path %>

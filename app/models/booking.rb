@@ -2,20 +2,29 @@ require 'csv'
 
 class Booking < ApplicationRecord
   before_save :geocode_addresses
+  # validates :loclonlat, :deslonlat, presence: true
 
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
 
   def geocode_addresses
     if location_changed? || !loclonlat
-      geocoded = Geocoder.search(location).first
-      if geocoded
-        self.loclonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
+      try = 0
+      while try < 3
+        geocoded = Geocoder.search(location).first
+        if geocoded
+          try = 3
+          self.loclonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
+        end
       end
     end
     if destination_changed?  || !deslonlat
-      geocoded = Geocoder.search(destination).first
-      if geocoded
-        self.deslonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
+      try = 0
+      while try < 3
+        geocoded = Geocoder.search(destination).first
+        if geocoded
+          try = 3
+          self.deslonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
+        end
       end
     end
   end
