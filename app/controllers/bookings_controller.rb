@@ -8,35 +8,27 @@ class BookingsController < ApplicationController
 
   def index
     @booking = Booking.new
-    @home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
-    @bookings = Booking.order(timeslot: :asc, location: :asc, destination: :asc)
-    @bookings_inbound = @bookings.where('location = ?', @home_location)
-    @bookings_outbound = @bookings.where('destination = ?', @home_location)
 
-    @trips = []
+    @bookings = Booking.order(timeslot: :asc, location: :asc, destination: :asc)
+
+    home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
+    @bookings_inbound = @bookings.where('location = ?', home_location)
+    @bookings_outbound = @bookings.where('destination = ?', home_location)
 
     @grouped_outbound_bookings = @bookings_outbound.group_by(&:timeslot)
-
     @grouped_inbound_bookings = @bookings_inbound.group_by(&:timeslot)
 
+    @trips = []
     @grouped_inbound_bookings.each do |_time, time_group|
       remaining_bookings = time_group.clone
       ### Loop if more than one booking in timeslot
       while remaining_bookings.count > 1
         ### Check furthest location
-        furthest = 0
-        furthest_booking = nil
-        remaining_bookings.each do |booking|
-          distance = booking.loclonlat.distance(booking.deslonlat)
-          if distance > furthest
-            furthest = distance
-            furthest_booking = booking
-          end
-        end
+        furthest_booking = get_furthest_booking(remaining_bookings)
+        remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         ### Find closest location to furthest
         closest = 999_999
         next_booking = nil
-        remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         remaining_bookings.each do |booking|
           distance = furthest_booking.deslonlat.distance(booking.deslonlat)
           if distance < closest
@@ -52,6 +44,7 @@ class BookingsController < ApplicationController
           remaining_bookings = remaining_bookings.reject { |booking| booking == next_booking }
         end
       end
+      ### Add remaining booking to trip
       @trips << remaining_bookings if remaining_bookings.count == 1
     end
 
@@ -60,19 +53,11 @@ class BookingsController < ApplicationController
       ### Loop if more than one booking in timeslot
       while remaining_bookings.count > 1
         ### Check furthest location
-        furthest = 0
-        furthest_booking = nil
-        remaining_bookings.each do |booking|
-          distance = booking.loclonlat.distance(booking.deslonlat)
-          if distance > furthest
-            furthest = distance
-            furthest_booking = booking
-          end
-        end
+        furthest_booking = get_furthest_booking(remaining_bookings)
+        remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         ### Find closest location to furthest
         closest = 999_999
         next_booking = nil
-        remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         remaining_bookings.each do |booking|
           distance = furthest_booking.loclonlat.distance(booking.loclonlat)
           if distance < closest
@@ -88,11 +73,9 @@ class BookingsController < ApplicationController
           remaining_bookings = remaining_bookings.reject { |booking| booking == next_booking }
         end
       end
-      ### Add single booking if there is only one in timeslot
+      ### Add remaining booking to trip
       @trips << remaining_bookings if remaining_bookings.count == 1
     end
-
-    @testing = @trips
   end
 
   # GET /bookings/1
@@ -154,6 +137,19 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def get_furthest_booking(remaining_bookings)
+    furthest = 0
+    furthest_booking = nil
+    remaining_bookings.each do |booking|
+      distance = booking.loclonlat.distance(booking.deslonlat)
+      if distance > furthest
+        furthest = distance
+        furthest_booking = booking
+      end
+    end
+    furthest_booking
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_booking
