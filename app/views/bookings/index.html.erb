@@ -2,6 +2,8 @@
 
 <h1>Bookings</h1>
 
+<h3> <%= "Bookings are only shown for the destination or location of 'home': " + @home_location %></h3>
+
 <% @trips.each do |trip| %>
 
 <table class="minimalistBlack">
@@ -25,8 +27,8 @@
         <td><%= booking.loclonlat ? booking.loclonlat.coordinates : '' %></td>
         <td><%= booking.destination %></td>
         <td><%= booking.deslonlat ? booking.deslonlat.coordinates : '' %></td>
-        <td><%= booking.timeslot %></td>
-        <!-- <td><%= booking.timeslot.to_time.strftime("%I:%M %p")  %></td> -->
+        <!-- <td><%= booking.timeslot %></td> -->
+        <td><%= booking.timeslot.strftime("%I:%M %p")  %></td>
 
         <td><%= link_to 'Show', booking %></td>
         <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
@@ -56,3 +58,6 @@
   <%= f.button :submit %>
   <% end %>
 </div>
+
+<!-- <p>Other Bookings:</p> -->
+<!-- <%= @other_bookings %> -->

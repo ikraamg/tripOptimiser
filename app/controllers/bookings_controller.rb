@@ -11,14 +11,17 @@ class BookingsController < ApplicationController
 
     @bookings = Booking.order(timeslot: :asc, location: :asc, destination: :asc)
 
-    home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
-    @bookings_inbound = @bookings.where('location = ?', home_location)
-    @bookings_outbound = @bookings.where('destination = ?', home_location)
+    @home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
+    @bookings_inbound = @bookings.where('location = ?', @home_location)
+    @bookings_outbound = @bookings.where('destination = ?', @home_location)
+
+    # @other_bookings = Booking.where.not('location = ? AND destination = ?', @home_location, @home_location)
 
     @grouped_outbound_bookings = @bookings_outbound.group_by(&:timeslot)
     @grouped_inbound_bookings = @bookings_inbound.group_by(&:timeslot)
 
     @trips = []
+    ### Create inbound trips
     @grouped_inbound_bookings.each do |_time, time_group|
       remaining_bookings = time_group.clone
       ### Loop if more than one booking in timeslot
@@ -48,6 +51,7 @@ class BookingsController < ApplicationController
       @trips << remaining_bookings if remaining_bookings.count == 1
     end
 
+    ### Create outbound trips
     @grouped_outbound_bookings.each do |_time, time_group|
       remaining_bookings = time_group.clone
       ### Loop if more than one booking in timeslot

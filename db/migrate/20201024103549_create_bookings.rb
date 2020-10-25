@@ -6,7 +6,7 @@ class CreateBookings < ActiveRecord::Migration[6.0]
       t.string :passenger
       t.string :location
       t.string :destination
-      t.string :timeslot
+      t.time :timeslot
 
       t.st_point :loclonlat, geographic: true
       t.st_point :deslonlat, geographic: true

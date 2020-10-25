@@ -37,7 +37,7 @@ class Booking < ApplicationRecord
       booking_hash.passenger = row[0]
       booking_hash.location = row[1]
       booking_hash.destination = row[2]
-      booking_hash.timeslot = row[3]
+      booking_hash.timeslot = row[3].to_time
       booking_hash.save
     end
   end

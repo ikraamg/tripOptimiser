@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2020_10_24_103549) do
     t.string "passenger"
     t.string "location"
     t.string "destination"
-    t.string "timeslot"
+    t.time "timeslot"
     t.geography "loclonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.geography "deslonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", precision: 6, null: false
