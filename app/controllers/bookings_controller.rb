@@ -9,7 +9,8 @@ class BookingsController < ApplicationController
   def index
     @booking = Booking.new
 
-    @bookings = Booking.order(timeslot: :asc, location: :asc, destination: :asc)
+    # @bookings = Booking.order(timeslot: :asc, location: :asc, destination: :asc)
+    @bookings =  Booking.all
 
     @home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
     @bookings_inbound = @bookings.where('location = ?', @home_location)
@@ -30,7 +31,7 @@ class BookingsController < ApplicationController
         furthest_booking = get_furthest_booking(remaining_bookings)
         remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         ### Find closest location to furthest
-        closest = 999_999
+        closest = 999_999_999
         next_booking = nil
         remaining_bookings.each do |booking|
           distance = furthest_booking.deslonlat.distance(booking.deslonlat)
@@ -60,7 +61,7 @@ class BookingsController < ApplicationController
         furthest_booking = get_furthest_booking(remaining_bookings)
         remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
         ### Find closest location to furthest
-        closest = 999_999
+        closest = 999_999_999
         next_booking = nil
         remaining_bookings.each do |booking|
           distance = furthest_booking.loclonlat.distance(booking.loclonlat)
@@ -80,6 +81,7 @@ class BookingsController < ApplicationController
       ### Add remaining booking to trip
       @trips << remaining_bookings if remaining_bookings.count == 1
     end
+    @trips = @trips.sort_by { |trip| trip[0].timeslot }
   end
 
   # GET /bookings/1
