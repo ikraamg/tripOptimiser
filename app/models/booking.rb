@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class Booking < ApplicationRecord
@@ -17,7 +19,7 @@ class Booking < ApplicationRecord
         end
       end
     end
-    if destination_changed?  || !deslonlat
+    if destination_changed? || !deslonlat
       try = 0
       while try < 3
         geocoded = Geocoder.search(destination).first

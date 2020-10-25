@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBookings < ActiveRecord::Migration[6.0]
   def change
     create_table :bookings do |t|
@@ -8,7 +10,7 @@ class CreateBookings < ActiveRecord::Migration[6.0]
 
       t.st_point :loclonlat, geographic: true
       t.st_point :deslonlat, geographic: true
-      
+
       t.index :loclonlat, using: :gist
       t.index :deslonlat, using: :gist
       t.index :timeslot
