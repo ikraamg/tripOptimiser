@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, 'postgis') %>
   database: etaPath_production
   username: etaPath
   password: <%= ENV['ETAPATH_DATABASE_PASSWORD'] %>
