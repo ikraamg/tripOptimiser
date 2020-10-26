@@ -32,7 +32,16 @@
 A rails app and sorting algorithm that groups passengers together by area and ensures fleets are efficient. Each grouping should get a tag to show that it has an association with a grouping. There are both inbound (from home to work) and outbound (from work to home) trips.
 
 Geocoder was used with the google maps api to geocode the addresses.
-PostGIS was used to extend the postgres database to allow for geospacial types and functionality such as distance measurements.
+PostGIS was used to extend the postgres database to allow for geospacial types and functionality such as distance measurements while keeping the database perfomant.
+
+The algorithm works as follows:
+
+- Bookings with the same locations grouped (Inbound);
+- Bookings with the same destination  grouped (Outbound);
+- Bookings with the same time slots within inboung/outbound grouped;
+- To ensure vehicles are not sent far out for only one booking, the algorithm starts the grouping from the furthest location and works its way in;
+- Once the furthest booking is selected, the next booking within a 15km radius, closest to the currently selected booking is selected with it. Else the currently selected is grouped on its own.
+- Bookings are iterated through the data until all bookings are sorted into a trip ‘groupings’.
 
 <!-- CONTROL'S -->
 ## Built With
@@ -45,7 +54,7 @@ PostGIS was used to extend the postgres database to allow for geospacial types a
 
 ## How to use
 
-- Upload bookings via csv or add trip locations via the browser
+- Upload bookings via csv or add trip locations via the browser with the following headers: [Passenger,Location,Destination,Timeslot]
 - The index page shows only the 'home location' of '64 Rigger Rd, Spartan, Kempton Park, 1619'.
 
 ### Installation
