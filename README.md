@@ -60,7 +60,7 @@ The algorithm works as follows:
 
 ### Installation
 
-Ensure the following are installed on your machine
+Ensure the following are installed on the host machine
 
 - Ruby
 - Redis
@@ -74,13 +74,36 @@ https://github.com/ikraamg/etaPath.git
 cd etaPath
 bundle install
 git checkout development
+
+```
+
+In order to get the app and the Geocoder working, the credentials.yml needs to be accessed.
+This can be done creating `master.key` file inside `config/` folder and putting the master key that the team uses inside the file.
+
+Or by creating a credentials file by:
+
+```bash
+ # instead of 'code', another editor such as 'vim' may be used
+ EDITOR="code --wait" bin/rails credentials:edit
+```
+
+Add to the top of the file:
+
+``` yml
+google:
+  maps: <API-KEY>
+```
+
+Now the server will be able to run:
+
+```bash
 rails db:create
 rails db:migrate
 rails db:seed
 rails s
 ```
 
-Find the server, [localhost:3000](http://localhost:3000) in your browser.
+Find the server, [localhost:3000](http://localhost:3000) in the browser.
 
 ### Automated Testing
 
