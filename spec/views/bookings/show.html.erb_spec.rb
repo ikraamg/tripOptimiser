@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'bookings/show', type: :view do
   before(:each) do
-    @booking = assign(:booking, Booking.create(passenger: 'Devora Nader', location:	'Kganane Road, Vosloorus, South Africa', destination:	'64 Rigger Rd, Spartan, Kempton Park, 1619', timeslot:	'5:00 AM'.to_time))
+    @booking = assign(:booking, Booking.create!(passenger: 'Devora Nader', location:	'Kganane Road, Vosloorus, South Africa', destination:	'64 Rigger Rd, Spartan, Kempton Park, 1619', timeslot:	'5:00 AM'.to_time))
   end
 
   it 'renders attributes in <p>' do
