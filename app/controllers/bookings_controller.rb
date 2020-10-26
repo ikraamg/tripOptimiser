@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
     # other_bookings = @bookings.where.not('location = ? AND destination = ?', @home_location, @home_location)
     @trips = get_trips(bookings_inbound, true)
     @trips.concat(get_trips(bookings_outbound, false))
-    @trips = @trips.sort_by { |trip| trip[0].timeslot }
+    @trips = @trips.sort_by { |trip| trip[:data][0].timeslot }
 
     respond_to do |format|
       format.json { render json: @trips, status: :ok }
@@ -99,9 +99,9 @@ class BookingsController < ApplicationController
         end
 
         ### Calculate the distance between furthest and next
-        distance = inbound ? furthest.deslonlat.distance(closest.deslonlat) : furthest.loclonlat.distance(closest.loclonlat)
-
-        ### Add single or double bookings to trips and remove from list
+        distance = inbound ? furthest&.deslonlat&.distance(closest&.deslonlat) : furthest&.loclonlat&.distance(closest&.loclonlat)
+        ### Add single or double bookings to trips and remove from list depending on distance
+        distance ||= 999_999_999
         if distance > 15_000
           trips << [furthest]
         else
@@ -112,6 +112,8 @@ class BookingsController < ApplicationController
       ### Add remaining booking to trip
       trips << bookings if bookings.count == 1
     end
-    trips
+    trips = trips.map.with_index do |trip, i|
+      { group: inbound ? "in#{i}" : "out#{i}", data: trip }
+    end
   end
 end

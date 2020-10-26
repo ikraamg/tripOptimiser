@@ -5,7 +5,7 @@
 <h3> <%= "Bookings are shown for the destination or location of 'home': " + @home_location %></h3>
 
 <% @trips.each do |trip| %>
-
+<h2> Group: <%= trip[:group] %> </h2>
 <table class="minimalistBlack">
   <thead>
     <tr>
@@ -20,7 +20,7 @@
   </thead>
 
   <tbody>
-    <% trip.each do |booking| %>
+    <% trip[:data].each do |booking| %>
       <tr>
         <td><%= booking.passenger %></td>
         <td><%= booking.location %></td>

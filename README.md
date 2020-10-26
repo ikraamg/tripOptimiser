@@ -11,7 +11,7 @@
     </p>
   </a>
 
-  <h3 align="center">Trip Optimiser - Improves  </h3>
+  <h3 align="center">Trip Optimiser - Fleet and passenger efficiency algorithm </h3>
 
   <p align="center">
     <a href="https://github.com/ikraamg/laptech/issues">Report a Bug or Request a Feature</a>
@@ -29,18 +29,18 @@
 
 ## About The Project
 
-This is a mobile-first full-stack app, [the front end](https://github.com/ikraamg/laptech) is a single page app that is built in React/Redux that communicates with the Ruby on Rails back-end via API requests that are secured by JWT authentication.
+A rails app and sorting algorithm that groups passengers together by area and ensures fleets are efficient. Each grouping should get a tag to show that it has an association with a grouping. There are both inbound (from home to work) and outbound (from work to home) trips.
 
-This repo contains the Rails back-end which function in API only mode. It handles authentication via JWT tokens and requires a token for all private requests.
-
-The front-end can be found [here](https://github.com/ikraamg/techStore)
+Geocoder with the google maps api to geocode the addresses.
+PostGIS was used to extend the postgres database to allow for geospacial types and functionality.
 
 <!-- CONTROL'S -->
 ## Built With
 
 - Rails
 - RSpec
-- JWT
+- PostGIS
+- Geocoder
 
 ## How to use
 
@@ -68,6 +68,7 @@ You can run all the commands in postman, the base url needs to be altered for th
 ### Installation
 
 Ensure the following are installed on your machine
+
 - Ruby
 - Redis
 - Postgres
