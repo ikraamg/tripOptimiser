@@ -16,13 +16,13 @@
   <p align="center">
     <a href="https://github.com/ikraamg/etaPath/issues">Report a Bug or Request a Feature</a>
     ·
-    <a href="https://tech-favourites.herokuapp.com/home">Live Demo</a>
+    <a href="https://trip-booking-algorithm.herokuapp.com/">Live Demo</a>
   </p>
 </p>
 
 <!-- Live Link  -->
 
-### [Live Demo Link](https://tech-favourites.herokuapp.com/home)
+### [Live Demo Link](https://trip-booking-algorithm.herokuapp.com/)
 
 <br>
 <!-- ABOUT THE PROJECT -->
@@ -56,6 +56,7 @@ The algorithm works as follows:
 
 - Upload bookings via csv or add trip locations via the browser with the following headers: [Passenger,Location,Destination,Timeslot]
 - The index page shows only the 'home location' of '64 Rigger Rd, Spartan, Kempton Park, 1619'.
+- The data can be returned via json as well with [/bookings.json]()
 
 ### Installation
 
@@ -72,6 +73,7 @@ To run the app locally, clone the repository and navigate to it's directory:
 https://github.com/ikraamg/etaPath.git
 cd etaPath
 bundle install
+git checkout development
 rails db:create
 rails db:migrate
 rails db:seed
