@@ -77,57 +77,40 @@ class BookingsController < ApplicationController
     params.require(:booking).permit(:passenger, :location, :destination, :timeslot, :file)
   end
 
-  def get_furthest_booking(bookings)
-    furthest = 0
-    furthest_booking = nil
-    bookings.each do |booking|
-      next unless booking.deslonlat && booking.loclonlat
-
-      distance = booking.loclonlat.distance(booking.deslonlat)
-      if distance > furthest
-        furthest = distance
-        furthest_booking = booking
-      end
-    end
-    furthest_booking
-  end
-
   def get_trips(booking_groups, inbound)
     trips = []
-    booking_groups.each do |_time, remaining_bookings|
+    booking_groups.each do |_time, bookings|
       ### Loop if more than one booking in timeslot
-      while remaining_bookings.count > 1
-        ### Check furthest location and extract it
-        furthest_booking = get_furthest_booking(remaining_bookings)
-        remaining_bookings = remaining_bookings.reject { |booking| booking == furthest_booking }
-        ### Find closest location to furthest
-        closest = 999_999_999
-        next_booking = nil
-        remaining_bookings.each do |booking|
+      while bookings.count > 1
+
+        ### Check furthest location and remove from list
+        furthest = bookings.max_by do |booking|
           next unless booking.deslonlat && booking.loclonlat
 
-          ### Change distance calculation upon direction
-          distance = if inbound
-                       furthest_booking.deslonlat.distance(booking.deslonlat)
-                     else
-                       furthest_booking.loclonlat.distance(booking.loclonlat)
-                     end
-
-          if distance < closest
-            closest = distance
-            next_booking = booking
-          end
+          booking.loclonlat.distance(booking.deslonlat)
         end
-        ### Add single or double bookings to trips
-        if closest > 15_000
-          trips << [furthest_booking]
+        bookings = bookings.reject { |booking| booking == furthest }
+
+        ### Find closest location to furthest
+        closest = bookings.min_by do |a|
+          next unless a.deslonlat && a.loclonlat
+
+          inbound ? furthest.deslonlat.distance(a.deslonlat) : furthest.loclonlat.distance(a.loclonlat)
+        end
+
+        ### Calculate the closest distance between furthest and next
+        distance = inbound ? furthest.deslonlat.distance(closest.deslonlat) : furthest.loclonlat.distance(closest.loclonlat)
+
+        ### Add single or double bookings to trips and remove from list
+        if distance > 15_000
+          trips << [furthest]
         else
-          trips << [furthest_booking, next_booking]
-          remaining_bookings = remaining_bookings.reject { |booking| booking == next_booking }
+          trips << [furthest, closest]
+          bookings = bookings.reject { |booking| booking == closest }
         end
       end
       ### Add remaining booking to trip
-      trips << remaining_bookings if remaining_bookings.count == 1
+      trips << bookings if bookings.count == 1
     end
     trips
   end
