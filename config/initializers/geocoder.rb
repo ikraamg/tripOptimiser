@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 Geocoder.configure(
   # Geocoding options
-  timeout: 3,                 # geocoding service timeout (secs)
-  lookup: :bing,         # name of geocoding service (symbol)
+  timeout: 3, # geocoding service timeout (secs)
+  lookup: :google, # name of geocoding service (symbol)
   # ip_lookup: :ipinfo_io,      # name of IP address geocoding service (symbol)
   # language: :en,              # ISO-639 language code
   # use_https: false,           # use HTTPS for lookup requests? (if supported)
   # http_proxy: nil,            # HTTP proxy server (user:pass@host:port)
   # https_proxy: nil,           # HTTPS proxy server (user:pass@host:port)
-  api_key: 'AlL_H9nbWEEQovPZnQSJz_9AXKwiUvDizy-oKPQBley_22XSYCWbYovh39jF_4Nf',               # API key for geocoding service
-  cache: Redis.new,                 # cache object (must respond to #[], #[]=, and #del)
+  api_key: Rails.application.credentials[:google_maps_api], # API key for geocoding service
+  cache: Redis.new # cache object (must respond to #[], #[]=, and #del)
   # cache_prefix: 'geocoder:',  # prefix (string) to use for all cache keys
 
   # Exceptions that should not be rescued by default
