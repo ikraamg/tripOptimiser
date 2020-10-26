@@ -4,7 +4,7 @@ require 'csv'
 
 class Booking < ApplicationRecord
   before_save :geocode_addresses
-  # validates :loclonlat, :deslonlat, presence: true
+  validates :location, :passenger, :destination, :timeslot, presence: true
 
   GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
 

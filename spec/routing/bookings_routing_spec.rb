@@ -24,6 +24,10 @@ RSpec.describe BookingsController, type: :routing do
       expect(post: '/bookings').to route_to('bookings#create')
     end
 
+    it 'routes to #csv_create' do
+      expect(post: 'bookings/upload').to route_to('bookings#csv_create')
+    end
+
     it 'routes to #update via PUT' do
       expect(put: '/bookings/1').to route_to('bookings#update', id: '1')
     end
