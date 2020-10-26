@@ -81,6 +81,8 @@ class BookingsController < ApplicationController
     furthest = 0
     furthest_booking = nil
     bookings.each do |booking|
+      next unless booking.deslonlat && booking.loclonlat
+
       distance = booking.loclonlat.distance(booking.deslonlat)
       if distance > furthest
         furthest = distance
@@ -102,6 +104,8 @@ class BookingsController < ApplicationController
         closest = 999_999_999
         next_booking = nil
         remaining_bookings.each do |booking|
+          next unless booking.deslonlat && booking.loclonlat
+
           ### Change distance calculation upon direction
           distance = if inbound
                        furthest_booking.deslonlat.distance(booking.deslonlat)

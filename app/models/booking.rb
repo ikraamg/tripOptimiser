@@ -19,6 +19,7 @@ class Booking < ApplicationRecord
           try = 3
           self.loclonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
         end
+        try += 1
       end
     end
     if destination_changed? || !deslonlat
@@ -29,6 +30,7 @@ class Booking < ApplicationRecord
           try = 3
           self.deslonlat = GEO_FACTORY.point(geocoded.latitude, geocoded.longitude)
         end
+        try += 1
       end
     end
   end
