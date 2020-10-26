@@ -29,7 +29,7 @@
 
 ## About The Project
 
-A rails app and sorting algorithm that groups passengers together by area and ensures fleets are efficient. Each grouping should get a tag to show that it has an association with a grouping. There are both inbound (from home to work) and outbound (from work to home) trips.
+This rails app is a sorting algorithm for booking trips that groups passengers together by area and ensures fleets are efficient. There are both inbound (from home to work) and outbound (from work to home) trips that are sorted.
 
 Geocoder was used with the google maps api to geocode the addresses.
 PostGIS was used to extend the postgres database to allow for geospacial types and functionality such as distance measurements while keeping the database perfomant.
