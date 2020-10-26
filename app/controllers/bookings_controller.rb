@@ -10,8 +10,8 @@ class BookingsController < ApplicationController
     @bookings = Booking.all
 
     @home_location = '64 Rigger Rd, Spartan, Kempton Park, 1619'
-    bookings_inbound = @bookings.where('location = ?', @home_location).group_by(&:timeslot)
-    bookings_outbound = @bookings.where('destination = ?', @home_location).group_by(&:timeslot)
+    bookings_inbound = @bookings.location(@home_location).group_by(&:timeslot)
+    bookings_outbound = @bookings.destination(@home_location).group_by(&:timeslot)
     # other_bookings = @bookings.where.not('location = ? AND destination = ?', @home_location, @home_location)
     @trips = get_trips(bookings_inbound, true)
     @trips.concat(get_trips(bookings_outbound, false))

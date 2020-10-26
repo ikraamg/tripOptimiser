@@ -6,8 +6,10 @@ class Booking < ApplicationRecord
   before_save :geocode_addresses
   validates :location, :passenger, :destination, :timeslot, presence: true
 
-  GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
+  scope :location, ->(location) { where('location = ?', location) }
+  scope :destination, ->(destination) { where('destination = ?', destination) }
 
+  GEO_FACTORY = RGeo::Geographic.spherical_factory(srid: 4326)
   def geocode_addresses
     if location_changed? || !loclonlat
       try = 0
