@@ -1,4 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url][![Forks][forks-shield]][forks-url][![Stargazers][stars-shield]][stars-url][![Issues][issues-shield]][issues-url]
+<!-- [![Contributors][contributors-shield]][contributors-url][![Forks][forks-shield]][forks-url][![Stargazers][stars-shield]][stars-url][![Issues][issues-shield]][issues-url] -->
 [![hire-badge](https://img.shields.io/badge/Consult%20/%20Hire%20Ikraam-Click%20to%20Contact-brightgreen)](mailto:consult.ikraam@gmail.com) [![Twitter Follow](https://img.shields.io/twitter/follow/GhoorIkraam?label=Follow%20Ikraam%20on%20Twitter&style=social)](https://twitter.com/GhoorIkraam)
 
 # Trip Optimiser
@@ -6,15 +6,15 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/ikraamg/techStore.git">
-    <p align="center"> <img src="https://user-images.githubusercontent.com/34813339/96832600-4d75e800-143f-11eb-811b-bf58741c4c45.gif" alt="laptech" height="500">
+  <a href="https://github.com/ikraamg/etaPath.git">
+    <p align="center"> <img src="https://user-images.githubusercontent.com/34813339/97208673-13507180-17c4-11eb-918e-7360436c48bd.png" alt="etaPath" height="500">
     </p>
   </a>
 
   <h3 align="center">Trip Optimiser - Fleet and passenger efficiency algorithm </h3>
 
   <p align="center">
-    <a href="https://github.com/ikraamg/laptech/issues">Report a Bug or Request a Feature</a>
+    <a href="https://github.com/ikraamg/etaPath/issues">Report a Bug or Request a Feature</a>
     ·
     <a href="https://tech-favourites.herokuapp.com/home">Live Demo</a>
   </p>
@@ -31,8 +31,8 @@
 
 A rails app and sorting algorithm that groups passengers together by area and ensures fleets are efficient. Each grouping should get a tag to show that it has an association with a grouping. There are both inbound (from home to work) and outbound (from work to home) trips.
 
-Geocoder with the google maps api to geocode the addresses.
-PostGIS was used to extend the postgres database to allow for geospacial types and functionality.
+Geocoder was used with the google maps api to geocode the addresses.
+PostGIS was used to extend the postgres database to allow for geospacial types and functionality such as distance measurements.
 
 <!-- CONTROL'S -->
 ## Built With
@@ -41,29 +41,12 @@ PostGIS was used to extend the postgres database to allow for geospacial types a
 - RSpec
 - PostGIS
 - Geocoder
+- Google Maps API
 
 ## How to use
 
-- Users can register and login to the account
-- Users can view list of technology items and click to view full details.
-- Users can favourite items and view a list of favourites
-
-## API
-
-Local Base URL is the url of the rails server, usually <http://localhost:3000>
-The deployed base Url: <https://tech-store-rails.herokuapp.com>
-
-You can run all the commands in postman, the base url needs to be altered for the requests when needed:
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/864ada94eaa937d45450)
-
-### [Link to full API docs](./doc/API.md)
-
-## ERD for Rails database
-
-<p align="center">
-  <a href="./doc/Techy.png"> <img src="./doc/Techy.png" alt="laptech" height="350">
-  </a>
-</p>
+- Upload bookings via csv or add trip locations via the browser
+- The index page shows only the 'home location' of '64 Rigger Rd, Spartan, Kempton Park, 1619'.
 
 ### Installation
 
@@ -77,9 +60,8 @@ Ensure the following are installed on your machine
 To run the app locally, clone the repository and navigate to it's directory:
 
 ```bash
-https://github.com/ikraamg/laptech.git
-cd laptech
-git checkout api-feature
+https://github.com/ikraamg/etaPath.git
+cd etaPath
 bundle install
 rails db:create
 rails db:migrate
@@ -87,29 +69,19 @@ rails db:seed
 rails s
 ```
 
-Now go to [localhost:3000](http://localhost:3000) in your browser.
+Find the server, [localhost:3000](http://localhost:3000) in your browser.
 
-### Automated Testing 🧪
+### Automated Testing
 
-The app was test with rspec and factoryBot and shoulda-matchers.
+The app was test with rspec and shoulda-matchers. Run the following code in the root directory of the application
 
 ```bash
 rspec
 ```
 
-## "Nice To Have Requirements" that are implemented
+#### Coverage Report 🧪
 
-- Implemented proper user authentication from the front-end to the server
-- Created a user table in the database, so that a given user can only access the favourites they selected
-- Made the app responsive, creating both tablet and desktop versions, following design guidelines
-- Transitions were implemented to make the user experience better
-- Created full documentation for the API
-- Dark Mode via toggle
-
-## Potential Updates
-
-- Users can message the creator of a tech-favourite
-- A store like checkout system can be created
+Once rspec is run, the coverage report can be found in `/coverage/index.html`.
 
 <!-- CONTACT -->
 
@@ -128,20 +100,16 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-Design influenced by [Alexey Savitskiy on Behance](https://www.behance.net/alexey_savitskiy)
+etaPath.com for the project concept
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/ikraamg/laptech.svg?style=flat-square
-[contributors-url]: https://github.com/ikraamg/laptech/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/ikraamg/laptech.svg?style=flat-square
-[forks-url]: https://github.com/ikraamg/laptech/network/members
-[stars-shield]: https://img.shields.io/github/stars/ikraamg/laptech.svg?style=flat-square
-[stars-url]: https://github.com/ikraamg/laptech/stargazers
-[issues-shield]: https://img.shields.io/github/issues/ikraamg/laptech.svg?style=flat-square
-[issues-url]: https://github.com/ikraamg/laptech/issues
-
-## 📝 License
-
-This project is [MIT](https://opensource.org/licenses/MIT) licensed.
+[contributors-shield]: https://img.shields.io/github/contributors/ikraamg/etaPath.svg?style=flat-square
+[contributors-url]: https://github.com/ikraamg/etaPath/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ikraamg/etaPath.svg?style=flat-square
+[forks-url]: https://github.com/ikraamg/etaPath/network/members
+[stars-shield]: https://img.shields.io/github/stars/ikraamg/etaPath.svg?style=flat-square
+[stars-url]: https://github.com/ikraamg/etaPath/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ikraamg/etaPath.svg?style=flat-square
+[issues-url]: https://github.com/ikraamg/etaPath/issues
