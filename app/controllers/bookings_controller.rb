@@ -98,7 +98,7 @@ class BookingsController < ApplicationController
           inbound ? furthest.deslonlat.distance(a.deslonlat) : furthest.loclonlat.distance(a.loclonlat)
         end
 
-        ### Calculate the closest distance between furthest and next
+        ### Calculate the distance between furthest and next
         distance = inbound ? furthest.deslonlat.distance(closest.deslonlat) : furthest.loclonlat.distance(closest.loclonlat)
 
         ### Add single or double bookings to trips and remove from list
