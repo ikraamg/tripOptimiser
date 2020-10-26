@@ -27,7 +27,6 @@
         <td><%= booking.loclonlat ? booking.loclonlat.coordinates : '' %></td>
         <td><%= booking.destination %></td>
         <td><%= booking.deslonlat ? booking.deslonlat.coordinates : '' %></td>
-        <!-- <td><%= booking.timeslot.localtime %></td> -->
         <td><%= booking.timeslot.localtime.strftime("%I:%M %p")  %></td>
 
         <td><%= link_to 'Show', booking %></td>
