@@ -4,12 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'bookings/edit', type: :view do
   before(:each) do
-    @booking = assign(:booking, Booking.create!(
-                                  passenger: 'MyString',
-                                  location: 'MyString',
-                                  destination: 'MyString',
-                                  timeslot: 'MyString'
-                                ))
+    @booking = assign(:booking, Booking.create(passenger: 'Devora Nader', location:	'Kganane Road, Vosloorus, South Africa', destination:	'64 Rigger Rd, Spartan, Kempton Park, 1619', timeslot:	'5:00 AM'.to_time))
   end
 
   it 'renders the edit booking form' do
@@ -22,7 +17,7 @@ RSpec.describe 'bookings/edit', type: :view do
 
       assert_select 'input[name=?]', 'booking[destination]'
 
-      assert_select 'input[name=?]', 'booking[timeslot]'
+      assert_select 'input[name=?]', 'booking[timeslot(1i)]'
     end
   end
 end

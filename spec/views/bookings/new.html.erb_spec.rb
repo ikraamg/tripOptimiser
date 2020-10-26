@@ -22,7 +22,7 @@ RSpec.describe 'bookings/new', type: :view do
 
       assert_select 'input[name=?]', 'booking[destination]'
 
-      assert_select 'input[name=?]', 'booking[timeslot]'
+      assert_select 'input[name=?]', 'booking[timeslot(1i)]'
     end
   end
 end

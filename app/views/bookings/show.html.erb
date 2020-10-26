@@ -27,7 +27,7 @@
 
 <p>
   <strong>Timeslot:</strong>
-  <%= @booking.timeslot %>
+  <td><%= @booking.timeslot.localtime.strftime("%I:%M %p")  %></td>
 </p>
 
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
