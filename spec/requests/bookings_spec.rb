@@ -59,16 +59,15 @@ RSpec.describe '/bookings', type: :request do
         end
       end
 
-      context 'with invalid parameters' do
-        it 'does not create a new Booking' do
-          expect do
-            post bookings_url, params: { booking: invalid_attributes }
-          end.to change(Booking, :count).by(0)
+      describe 'POST /upload' do
+        before :each do
+          @file = fixture_file_upload('bookings.csv', 'csv')
+          Booking.import(@file)
         end
-
-        it "renders a successful response (i.e. to display the 'new' template)" do
-          post bookings_url, params: { booking: invalid_attributes }
-          expect(response).to be_successful
+        it 'creates all bookings in CSV file' do
+          expect do
+            post '/bookings/upload', params: { booking: { file: @file } }
+          end.to change(Booking, :count).by(19)
         end
       end
     end
