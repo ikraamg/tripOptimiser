@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -30,6 +32,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'activerecord-postgis-adapter'
 
+gem 'geocoder'
+
+gem 'redis'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'better_errors'
@@ -46,6 +52,7 @@ group :test do
   gem 'faker'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
 end
 
 group :development do

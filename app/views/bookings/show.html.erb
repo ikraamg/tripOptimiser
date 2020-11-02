@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Passenger:</strong>
+  <%= @booking.passenger %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @booking.location %>
+</p>
+
+<p>
+  <strong>Location Coordinates:</strong>
+  <%= @booking.loclonlat ? @booking.loclonlat.coordinates : '' %>
+</p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @booking.destination %>
+</p>
+
+<p>
+  <strong>Destination Coordinates:</strong>
+  <%= @booking.deslonlat ? @booking.deslonlat.coordinates : '' %>
+</p>
+
+<p>
+  <strong>Timeslot:</strong>
+  <td><%= @booking.timeslot.localtime.strftime("%I:%M %p")  %></td>
+</p>
+
+<%= link_to 'Edit', edit_booking_path(@booking) %> |
+<%= link_to 'Back', bookings_path %>

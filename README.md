@@ -1,24 +1,149 @@
-# README
+<!-- [![Contributors][contributors-shield]][contributors-url][![Forks][forks-shield]][forks-url][![Stargazers][stars-shield]][stars-url][![Issues][issues-shield]][issues-url] -->
+[![hire-badge](https://img.shields.io/badge/Consult%20/%20Hire%20Ikraam-Click%20to%20Contact-brightgreen)](mailto:consult.ikraam@gmail.com) [![Twitter Follow](https://img.shields.io/twitter/follow/GhoorIkraam?label=Follow%20Ikraam%20on%20Twitter&style=social)](https://twitter.com/GhoorIkraam)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Trip Optimiser
+<!-- PROJECT LOGO -->
 
-Things you may want to cover:
+<br />
+<p align="center">
+  <a href="https://github.com/ikraamg/etaPath.git">
+    <p align="center"> <img src="https://user-images.githubusercontent.com/34813339/97208673-13507180-17c4-11eb-918e-7360436c48bd.png" alt="etaPath" height="500">
+    </p>
+  </a>
 
-* Ruby version
+  <h3 align="center">Trip Optimiser - Fleet and passenger efficiency algorithm </h3>
 
-* System dependencies
+  <p align="center">
+    <a href="https://github.com/ikraamg/etaPath/issues">Report a Bug or Request a Feature</a>
+    ·
+    <a href="https://trip-booking-algorithm.herokuapp.com/">Live Demo</a>
+  </p>
+</p>
 
-* Configuration
+<!-- Live Link  -->
 
-* Database creation
+### [Live Demo Link](https://trip-booking-algorithm.herokuapp.com/)
 
-* Database initialization
+<br>
+<!-- ABOUT THE PROJECT -->
 
-* How to run the test suite
+## About The Project
 
-* Services (job queues, cache servers, search engines, etc.)
+This rails app is a sorting algorithm for booking trips that groups passengers together by area and ensures fleets are efficient. There are both inbound (from home to work) and outbound (from work to home) trips that are sorted.
 
-* Deployment instructions
+Geocoder was used with the google maps api to geocode the addresses.
+PostGIS was used to extend the postgres database to allow for geospacial types and functionality such as distance measurements while keeping the database perfomant.
 
-* ...
+The algorithm works as follows:
+
+- Bookings with the same locations grouped (Inbound);
+- Bookings with the same destination  grouped (Outbound);
+- Bookings with the same time slots within inboung/outbound grouped;
+- To ensure vehicles are not sent far out for only one booking, the algorithm starts the grouping from the furthest location and works its way in;
+- Once the furthest booking is selected, the next booking within a 15km radius, closest to the currently selected booking is selected with it. Else the currently selected is grouped on its own.
+- Bookings are iterated through the data until all bookings are sorted into a trip ‘groupings’.
+
+<!-- CONTROL'S -->
+## Built With
+
+- Rails
+- RSpec
+- PostGIS
+- Geocoder
+- Google Maps API
+
+## How to use
+
+- Upload bookings via csv or add trip locations via the browser with the following headers: [Passenger,Location,Destination,Timeslot]
+- The index page shows only the 'home location' of '64 Rigger Rd, Spartan, Kempton Park, 1619'.
+- The data can be returned via json as well with [/bookings.json]()
+
+### Installation
+
+Ensure the following are installed on the host machine
+
+- Ruby
+- Redis
+- Postgres
+- PostGIS
+
+To run the app locally, clone the repository and navigate to it's directory:
+
+```bash
+https://github.com/ikraamg/etaPath.git
+cd etaPath
+bundle install
+git checkout development
+
+```
+
+In order to get the app and the Geocoder working, the credentials.yml needs to be accessed.
+This can be done creating `master.key` file inside `config/` folder and putting the master key that the team uses inside the file.
+
+Or by creating a credentials file by:
+
+```bash
+ # instead of 'code', another editor such as 'vim' may be used
+ EDITOR="code --wait" bin/rails credentials:edit
+```
+
+Add to the top of the file:
+
+``` yml
+google:
+  maps: <API-KEY>
+```
+
+Now the server will be able to run:
+
+```bash
+rails db:create
+rails db:migrate
+rails db:seed
+rails s
+```
+
+Find the server, [localhost:3000](http://localhost:3000) in the browser.
+
+### Automated Testing
+
+The app was test with rspec and shoulda-matchers. Run the following code in the root directory of the application
+
+```bash
+rspec
+```
+
+#### Coverage Report 🧪
+
+Once rspec is run, the coverage report can be found in `/coverage/index.html`.
+
+<!-- CONTACT -->
+
+## Authors
+
+👤 **Ikraam Ghoor**
+
+- Github: [@ikraamg](https://github.com/ikraamg)
+- Twitter: [@GhoorIkraam](https://twitter.com/GhoorIkraam)
+- LinkedIn: [isghoor](https://linkedin.com/isghoor)
+- Email: [consult.ikraam@gmail.com](mailto:consult.ikraam@gmail.com)
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+etaPath.com for the project concept
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/ikraamg/etaPath.svg?style=flat-square
+[contributors-url]: https://github.com/ikraamg/etaPath/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/ikraamg/etaPath.svg?style=flat-square
+[forks-url]: https://github.com/ikraamg/etaPath/network/members
+[stars-shield]: https://img.shields.io/github/stars/ikraamg/etaPath.svg?style=flat-square
+[stars-url]: https://github.com/ikraamg/etaPath/stargazers
+[issues-shield]: https://img.shields.io/github/issues/ikraamg/etaPath.svg?style=flat-square
+[issues-url]: https://github.com/ikraamg/etaPath/issues
